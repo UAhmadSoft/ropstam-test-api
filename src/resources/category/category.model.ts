@@ -1,7 +1,7 @@
 import { Schema, model } from 'mongoose';
 import Category from '@/resources/category/category.interface';
 
-const UserSchema = new Schema(
+const CategorySchema = new Schema(
   {
     name: {
       type: String,
@@ -20,4 +20,4 @@ const UserSchema = new Schema(
   }
 );
 
-export default model<Category>('Category', UserSchema);
+export default model<Category>('Category', CategorySchema);
