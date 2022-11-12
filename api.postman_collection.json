@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "d22c96a2-e8ff-43c7-bd90-cf34d1490c41",
-		"name": "Express-with-typescript",
+		"name": "Ropstam Task API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "9624369"
 	},
@@ -27,7 +27,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"firstName\" : \"{{$randomFirstName}}\",\r\n    \"lastName\" : \"{{$randomLastName}}\",\r\n    \"email\" : \"{{$randomEmail}}\",\r\n    \"password\" : \"pass1234\",\r\n    \"passwordConfirm\"  : \"pass1234\"\r\n}",
+							"raw": "{\r\n    \"firstName\" : \"{{$randomFirstName}}\",\r\n    \"lastName\" : \"{{$randomLastName}}\",\r\n    \"email\" : \"{{$randomEmail}}\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -45,12 +45,23 @@
 				},
 				{
 					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"token\" , pm.response.json().token)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\" : \"Lola.Nienow@hotmail.com\",\r\n    \"password\" :  \"{{PASSWORD}}\"\r\n}",
+							"raw": "{\r\n    \"email\" : \"umadahmad1928@gmail.com\",\r\n    \"password\" :  \"{{PASSWORD}}\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -131,15 +142,9 @@
 							}
 						},
 						"url": {
-							"raw": "/:id",
+							"raw": "/me",
 							"path": [
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": "63343f3eca00d5cd92675969"
-								}
+								"me"
 							]
 						}
 					},
@@ -232,8 +237,338 @@
 					}
 				}
 			]
+		},
+		{
+			"name": "Category",
+			"item": [
+				{
+					"name": "Get All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "/",
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create One",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\"  : \"{{$randomLoremSlug}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "/",
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Single by id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "/:id",
+							"path": [
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "636dfdc18dac93948a976d2a"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete One by Id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "/:id",
+							"path": [
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "636dfdc18dac93948a976d2a"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update one By Id",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\" : \"{{$randomFirstName}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "/:id",
+							"path": [
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "63343f3eca00d5cd92675969"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"const baseUrl =pm.collectionVariables.get('BASE_URL')",
+							"",
+							"console.log('baseUrl' , baseUrl)",
+							"",
+							"pm.request.url = `${baseUrl}/categories${pm.request.url}`"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"const baseUrl =pm.collectionVariables.get('BASE_URL')",
+							"",
+							"console.log(baseUrl)",
+							"",
+							"pm.request.url = `${baseUrl}/categories${pm.request.url}`"
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Cars",
+			"item": [
+				{
+					"name": "Get All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "/",
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create One",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\"  : \"{{$randomLoremSlug}}\",\r\n    \"model\" : \"{{$randomInt}}\",\r\n    \"color\" : \"{{$randomHexColor}}\",\r\n    \"registrationNumber\" :\"{{$randomInt}}\",\r\n    \"category\" : \"636e0241ce21503fcb9fd89a\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "/",
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Single by id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "/:id",
+							"path": [
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "636e02a8a61b6f7275167cb3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete One by Id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "/:id",
+							"path": [
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "636e02b7a61b6f7275167cb6"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update one By Id",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\"  : \"{{$randomLoremSlug}}\",\r\n    \"model\" : \"{{$randomInt}}\",\r\n    \"color\" : \"{{$randomHexColor}}\",\r\n    \"registrationNumber\" :\"{{$randomInt}}\",\r\n    \"category\" : \"636e023ece21503fcb9fd896\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "/:id",
+							"path": [
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "636e02a8a61b6f7275167cb3"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"const baseUrl =pm.collectionVariables.get('BASE_URL')",
+							"",
+							"console.log('baseUrl' , baseUrl)",
+							"",
+							"pm.request.url = `${baseUrl}/cars${pm.request.url}`"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"const baseUrl =pm.collectionVariables.get('BASE_URL')",
+							"",
+							"console.log(baseUrl)",
+							"",
+							"pm.request.url = `${baseUrl}/cars${pm.request.url}`"
+						]
+					}
+				}
+			]
 		}
 	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
 	"event": [
 		{
 			"listen": "prerequest",
@@ -262,8 +597,12 @@
 		},
 		{
 			"key": "PASSWORD",
-			"value": "pass1234",
+			"value": "DqxQXCYEhk",
 			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": ""
 		}
 	]
 }
