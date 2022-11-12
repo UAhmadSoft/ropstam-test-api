@@ -96,7 +96,11 @@ class AuthController implements Controller {
         password,
       });
 
-      res.status(HTTPCodes.CREATED).json({ user, token });
+      res.status(HTTPCodes.CREATED).json({
+        user,
+        token,
+        message: 'Signup Successfull! Login instructions sent to your email.',
+      });
     } catch (error: any) {
       next(new HttpException(HTTPCodes.BAD_REQUEST, error.message));
     }

@@ -8,6 +8,7 @@ import ErrorMiddleware from '@/middleware/error.middleware';
 import helmet from 'helmet';
 import path from 'path';
 import xss from 'xss-clean';
+import expressMongoSanitize from 'express-mongo-sanitize';
 
 class App {
   public express: Application;
@@ -34,6 +35,7 @@ class App {
     this.express.use(cors());
     this.express.use(morgan('dev'));
     this.express.use(xss());
+    this.express.use(expressMongoSanitize());
     this.express.use(express.json());
     this.express.use(express.urlencoded({ extended: false }));
     this.express.use(compression());

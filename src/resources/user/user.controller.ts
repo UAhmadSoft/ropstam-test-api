@@ -6,6 +6,7 @@ import validate from '@/resources/user/user.validation';
 import UserService from '@/resources/user/user.service';
 import authenticated from '@/middleware/authenticated.middleware';
 import { HTTPCodes } from '@/utils/helpers/response';
+import authenticatedMiddleware from '@/middleware/authenticated.middleware';
 
 class UserController implements Controller {
   public path = '/users';
@@ -21,7 +22,7 @@ class UserController implements Controller {
 
     this.router.get(`${this.path}`, this.getUsers);
 
-    this.router.get(`${this.path}/me`, this.getMe);
+    this.router.get(`${this.path}/me`, authenticatedMiddleware, this.getMe);
 
     this.router.patch(
       `${this.path}/:id`,
